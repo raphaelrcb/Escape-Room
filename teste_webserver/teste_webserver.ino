@@ -1,0 +1,41 @@
+#include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+#include <ESP8266mDNS.h>
+
+const char* ssid = "Submarino";
+const char* password = "submarinoK221";
+
+String site = "";
+
+ESP8266WebServer server(80); // server http://192.168.4.1
+
+void handleRoot() {
+  site = "<html>\n";
+  site += "<head><title>Hello World</title></head>\n";
+  site += "<body style =\"color: blue\">\n";
+  site += "<center><h1>Hello World do Submarino </h1></center>\n";
+  site += "</body>\n";
+  site += "</html>";
+
+  server.send(200, "text/html", site);
+
+  site = "";
+}
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+  WiFi.mode(WIFI_AP); 
+  WiFi.softAP(ssid, password);
+  IPAddress myIP = WiFi.softAPIP();
+  Serial.println("\n O endereço do Submarino é: ");
+  Serial.println(myIP);
+  server.on("/", handleRoot);
+  server.begin(); 
+  Serial.print("conectado");
+}
+
+void loop() {
+  server.handleClient();
+}
