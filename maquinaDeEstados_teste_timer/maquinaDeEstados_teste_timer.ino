@@ -8,6 +8,22 @@
 #define estado_3 3
 #define tempoContador 15 // tempo em segundos
 
+
+//STRING DAS DICAS
+
+char Etapa1dica1[500] = "Tente apertar o botao1...";
+char Etapa1dica2[500] = "O primeiro da direita para a esquerda..";
+char Etapa1dica3[500] = "O terceiro da esquerda para a direita..";
+char Etapa2dica1[500] = "Tente apertar o botao2...";
+char Etapa2dica2[500] = "Tente apertar o botao1...";
+char Etapa2dica3[500] = "Tente apertar o botao1...";
+char Etapa3dica1[500] = "Tente apertar o botao1...";
+char Etapa3dica2[500] = "Tente apertar o botao1...";
+char Etapa3dica3[500] = "Tente apertar o botao1...";
+char SemDica[500] = "Acabaram as dicas para essa etapa :( ";
+char Acabou[500] = "Tente apertar o botao1...";
+
+
 volatile char controle;
 
 const int botao1 = 2;
@@ -62,7 +78,7 @@ void maquinaDeEstados(){
         controle = estado_1;
       }else{
         if(querDica == HIGH && dica1 == false){
-          Serial.println("Tente apertar o botao1...");
+          Serial.println(Etapa1dica1);
           querDica = LOW;
           dica1 = true; //não deixa que a primeira dica dessa etapa volte a se repetir
           nextDica = 1;
@@ -71,19 +87,19 @@ void maquinaDeEstados(){
           Timer1.attachInterrupt(contaTempo);
           delay(1000);
         }else if((dica2 == true || querDica == HIGH)  && nextDica == 1){
-          Serial.println("O primeiro da direita para a esquerda..");
+          Serial.println(Etapa1dica2);
           dica2 = false;
           nextDica = 2;
           querDica = LOW;
           delay(1000);
         }else if((dica3 == true  || querDica == HIGH) && nextDica == 2){
-          Serial.println("O terceiro da esquerda para a direita..");
+          Serial.println(Etapa1dica3);
           querDica = LOW;
           dica3 = false;
           nextDica = 3;
           delay(1000);
         }else if(querDica == HIGH && nextDica == 3){
-          Serial.println("Acabaram as dicas para essa etapa :( ");
+          Serial.println(SemDica);
           querDica = LOW;
           delay(1000);
         }
@@ -96,7 +112,7 @@ void maquinaDeEstados(){
         controle = estado_2;
       }else{
         if(querDica == HIGH && dica1 == false){
-          Serial.println("Tente apertar o botao2...");
+          Serial.println(Etapa2dica1);
           querDica = LOW;
           dica1 = true;
           nextDica = 1;
