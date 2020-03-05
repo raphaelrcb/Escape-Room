@@ -26,14 +26,14 @@ void handleRoot() {
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-//  while (!Serial) ;
   WiFi.mode(WIFI_AP); 
   WiFi.softAP(ssid, password);
   IPAddress myIP = WiFi.softAPIP();
-  Serial.println("\nMeu Endereço IP é: ");
+  Serial.println("\n O endereço do Submarino é: ");
   Serial.println(myIP);
   server.on("/", handleRoot);
   server.begin(); 
+  Serial.print("conectado");
 }
 
 void loop() {
