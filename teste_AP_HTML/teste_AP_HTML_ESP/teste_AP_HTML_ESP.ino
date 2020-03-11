@@ -1,8 +1,22 @@
+// INCLUSÃO DE BIBLIOTECAS
+#include <A2a.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 
+// DEFINIÇÃO DO ENDEREÇO DO SLAVE
+#define endereco 8
+
+// DEFINIÇÃO DAS PORTAS I2C
+#define SDA 0
+#define SCL 2
+
+// Definição dos Endereços de COmunicação ESP <-> MEGA
+#define LowByte 1
+#define HighByte 0
+
+// Definição do WebServer
 const char* ssid = "submarino";
 const char* password = "submarinok221";
 
@@ -29,11 +43,10 @@ void setup()
 {         
     Serial.begin(115200);
 
-    //Conexão na rede WiFi
+    //Iniciando a rede WiFi
     Serial.println();
     Serial.print("Conectando a ");
     Serial.println(ssid);
-//    WiFi.begin(ssid, password);
     WiFi.mode(WIFI_AP);
     WiFi.softAP(ssid,password);
 //    IPAddress myIP = WiFi.softAPIP();
@@ -42,8 +55,8 @@ void setup()
 //      delay(500);
 //      Serial.print(".");
 //    }
-    Serial.println("");
-    Serial.println("WiFi conectado!");
+//    Serial.println("");
+//    Serial.println("WiFi conectado!");
 
     // Inicia o servidor WEB
     server.begin();
@@ -88,7 +101,7 @@ void loop()
 
                         
                         client.println("<head>");
-                        client.println("<title>WebServer do Submarino</title>");
+                        client.println("<title>Submarino</title>");
 
                         client.println("<script>");
                         client.println("function LeDadosDoArduino() {");
